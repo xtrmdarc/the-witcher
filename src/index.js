@@ -1,14 +1,14 @@
 import 'phaser';
-import skyImg from './assets/img/world/sky.png';
 import tileSet from './assets/img/world/tileset.png';
 import heroSS from './assets/img/hero/c00a_01idle.png';
 import Hero from './model/hero';
 import heroWalkSS from './assets/img/hero/c00a_02walk.png';
+import Helper from './helper';
 
 var config = {
   type: Phaser.AUTO,
   width: window.innerWidth,
-  height: 600,
+  height: window.innerHeight - 5,
   physics: {
     default: 'arcade',
     arcade: {
@@ -24,9 +24,12 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-
+let background;
 function preload() {
-  this.load.image('sky', skyImg);
+  
+  background = Helper.getBaseBackground(this);
+  background.loadBackgroundAssets();
+
   this.load.image('world-tileset', tileSet);
   this.load.spritesheet('hero', heroSS, {frameWidth: 480, frameHeight: 480});
   this.load.spritesheet('hero-walk-ss', heroWalkSS, {frameWidth: 480, frameHeight: 480});
@@ -39,10 +42,7 @@ function create() {
   const height = game.scale.height;
   const width = game.scale.width;
   
-  for (let i = 0; i < width / 112; i++) {
-    const sky = this.add.image(112 / 2 + (i * 112 ), height / 2, 'sky');
-    sky.displayHeight = height;
-  }
+  background.renderBackground();
 
   const level = [
                   [2, 61, 62, 63, 64, 65, 66, 9],
@@ -97,4 +97,6 @@ function update() {
   {
     player.jump();
   }
+
+  background.updateBackground();
 }
