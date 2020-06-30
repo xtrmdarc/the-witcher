@@ -2,10 +2,12 @@ import 'phaser';
 import skyImg from './assets/img/world/sky.png';
 import tileSet from './assets/img/world/tileset.png';
 import heroSS from './assets/img/hero/c00a_01idle.png';
+import Hero from './model/hero';
+import heroWalkSS from './assets/img/hero/c00a_02walk.png';
 
 var config = {
   type: Phaser.AUTO,
-  width: 800,
+  width: window.innerWidth,
   height: 600,
   physics: {
     default: 'arcade',
@@ -27,15 +29,17 @@ function preload() {
   this.load.image('sky', skyImg);
   this.load.image('world-tileset', tileSet);
   this.load.spritesheet('hero', heroSS, {frameWidth: 480, frameHeight: 480});
+  this.load.spritesheet('hero-walk-ss', heroWalkSS, {frameWidth: 480, frameHeight: 480});
 }
 
 let platforms;
+let player;
 
 function create() {
   const height = game.scale.height;
   const width = game.scale.width;
   
-  for (let i = 0; i < 800 / 112; i++) {
+  for (let i = 0; i < width / 112; i++) {
     const sky = this.add.image(112 / 2 + (i * 112 ), height / 2, 'sky');
     sky.displayHeight = height;
   }
@@ -52,27 +56,45 @@ function create() {
   const tiles = map.addTilesetImage('world-tileset');
   const layer = map.createStaticLayer(0, tiles, width / 2 - 30, height / 2 - 30);
 
-  const player = this.physics.add.sprite(width / 2, 0, 'hero');
-  player.setBounce(0.2);
-  player.setSize(400,250);
-  player.setScale(0.3);
-
+  // const player = this.physics.add.sprite(width / 2, 0, 'hero');
+  // player.setBounce(0.2);
+  // player.setSize(400,250);
+  // player.setScale(0.3);
+  
+  player = new Hero(this, width / 2, 0, 'hero');
   layer.setCollisionBetween(100,400);
   this.physics.add.collider(player, layer);
-  // player.setCollideWorldBounds(true);
+  // this.physics.add.existing(layer, true);
 
-  this.anims.create({
-    key: 'idle',
-    frames: this.anims.generateFrameNumbers('hero', { start: 0, end: 13 }),
-    frameRate: 10,
-    repeat: -1,
-  });
+  // this.anims.create({
+  //   key: 'idle',
+  //   frames: this.anims.generateFrameNumbers('hero', { start: 0, end: 13 }),
+  //   frameRate: 10,
+  //   repeat: -1,
+  // });
 
-  player.anims.play('idle', true);
+  // player.anims.play('idle', true);
   // platforms = this.physics.add.staticGroup();
   // platforms.create(0, height - 200 / 2, 'ground');
 }
 
 function update() {
 
+  const cursors = this.input.keyboard.createCursorKeys();
+  if (cursors.left.isDown)
+  {
+    player.move('left');
+  }
+  else if (cursors.right.isDown)
+  {
+    player.move('right');
+  }
+  else
+  {
+    player.idle();
+  }
+  if (cursors.up.isDown && player.body.blocked.down)
+  {
+    player.jump();
+  }
 }
