@@ -8,6 +8,12 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.jp[e]?g$|\.png$/,
+        use: [
+          'file-loader',
+        ],
+      }
     ],
   },
 };
