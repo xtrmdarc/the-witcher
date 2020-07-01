@@ -1,8 +1,6 @@
 import 'phaser';
 import tileSet from './assets/img/world/tileset.png';
-import heroSS from './assets/img/hero/c00a_01idle.png';
 import Hero from './model/hero';
-import heroWalkSS from './assets/img/hero/c00a_02walk.png';
 import Helper from './helper';
 
 var config = {
@@ -31,12 +29,13 @@ function preload() {
   background.loadBackgroundAssets();
 
   this.load.image('world-tileset', tileSet);
-  this.load.spritesheet('hero', heroSS, {frameWidth: 480, frameHeight: 480});
-  this.load.spritesheet('hero-walk-ss', heroWalkSS, {frameWidth: 480, frameHeight: 480});
+  
+  Hero.loadAssets(this);
 }
 
 let platforms;
 let player;
+let bullet;
 
 function create() {
   const height = game.scale.height;
@@ -45,11 +44,11 @@ function create() {
   background.renderBackground();
 
   const level = [
-                  [2, 61, 62, 63, 64, 65, 66, 9],
-                  [118, 119, 120, 121, 122, 123, 124, 36],
-                  [2, 177, 178, 179, 180, 181, 182, 183],
-                  [2, 2, 236, 237, 238, 239, 240, 241, 242, 243, 180, 181, 182, 183],
-                  [2, 293, 294, 295, 296],
+                  [2, 61, 62, 63, 64, 65, 66, 2],
+                  [118, 119, 120, 121, 122, 123, 124, 2],
+                  [2, 177, 178, 179, 180, 181, 182, 183, 2],
+                  [2, 2, 236, 237, 238, 239, 240, 241, 242, 2, 2, 2, 2, 2],
+                  [2, 293, 294, 295, 296, 2, 2, 2, 2, 2],
                 ];
 
   const map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
@@ -62,7 +61,8 @@ function create() {
   // player.setScale(0.3);
   
   player = new Hero(this, width / 2, 0, 'hero');
-  layer.setCollisionBetween(100,400);
+  // bullet = new Bullet(this, 20, 20, 'weapons');
+  layer.setCollisionBetween(120,400);
   this.physics.add.collider(player, layer);
   // this.physics.add.existing(layer, true);
 
@@ -93,10 +93,15 @@ function update() {
   {
     player.idle();
   }
+  if(cursors.space._justDown) {
+    player.shoot();
+  }
   if (cursors.up.isDown && player.body.blocked.down)
   {
     player.jump();
   }
+
+
 
   background.updateBackground();
 }
