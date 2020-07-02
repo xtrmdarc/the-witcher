@@ -3,6 +3,8 @@ import tileSet from './assets/img/world/tileset.png';
 import Hero from './model/hero';
 import Helper from './helper';
 import testTileMap from './assets/maps/test_map.json';
+import Enemy from './model/enemy';
+import Droppy from './model/droppy';
 
 var config = {
   type: Phaser.AUTO,
@@ -12,7 +14,7 @@ var config = {
     default: 'arcade',
     arcade: {
         gravity: { y: 300 },
-        debug: false,
+        debug: true,
     },
   },
   scene: {
@@ -30,13 +32,14 @@ function preload() {
   background.loadBackgroundAssets();
   this.load.tilemapTiledJSON('map', testTileMap);
   this.load.image('world-tileset', tileSet);
-  
+  Helper.loadAllAssets(this);
   Hero.loadAssets(this);
 }
 
 let platforms;
 let player;
 let bullet;
+let enemy1;
 
 function create() {
   const height = game.scale.height;
@@ -55,12 +58,15 @@ function create() {
   // player.setScale(0.3);
   this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
   player = new Hero(this, width / 2, 0, 'hero');
+  enemy1 = new Droppy(this, width / 2 + 100, 0);
   // bullet = new Bullet(this, 20, 20, 'weapons');
   // layer.setCollisionBetween(120,400);
   collisionLayer.setCollisionBetween(405,408);
   collisionLayer.alpha = 0;
   this.physics.add.collider(player, collisionLayer);
-  collisionLayer.setCollisionByProperty({collides: true});
+  this.physics.add.collider(enemy1, collisionLayer);
+  this.physics.add.collider(enemy1, player);
+  // collisionLayer.setCollisionByProperty({collides: true});
   // this.physics.add.existing(layer, true);
 
   // this.anims.create({
@@ -96,6 +102,7 @@ function update() {
   if (cursors.up.isDown && player.body.blocked.down)
   {
     player.jump();
+    enemy1.idle();
   }
 
   background.updateBackground();

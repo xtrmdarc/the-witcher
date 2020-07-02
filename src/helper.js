@@ -1,6 +1,13 @@
 import skyImg from './assets/img/world/sky.png';
 import cloudsImg from './assets/img/world/clouds.png';
 import seaImg from './assets/img/world/sea.png';
+import en1Idle from './assets/img/enemy/enemy1/e001a_01idle.png';
+import en1Walk from './assets/img/enemy/enemy1/e001a_02walk.png';
+import en2Idle from './assets/img/enemy/enemy2/e002a_01idle.png';
+import en2Walk from './assets/img/enemy/enemy2/e002a_02walk.png';
+import en3Idle from './assets/img/enemy/enemy3/e003a_01idle.png';
+import en3Walk from './assets/img/enemy/enemy3/e003a_02walk.png';
+
 
 const helper = (() => {
   const getBaseBackground = (pscene) => {
@@ -60,7 +67,17 @@ const helper = (() => {
 
     return { renderBackground, loadBackgroundAssets, updateBackground };
   };
-  return { getBaseBackground };
+
+  const loadAllAssets = (scene) => {
+    scene.load.spritesheet('enemy1', en1Idle, {frameWidth: 480, frameHeight: 480});
+    scene.load.spritesheet('enemy1-walk-ss', en1Walk, {frameWidth: 480, frameHeight: 480});
+    scene.load.spritesheet('enemy2', en2Idle, {frameWidth: 480, frameHeight: 480});
+    scene.load.spritesheet('enemy2-walk-ss',en2Walk, {frameWidth: 480, frameHeight: 480});
+    scene.load.spritesheet('enemy3',en3Idle, {frameWidth: 480, frameHeight: 480});
+    scene.load.spritesheet('enemy3-walk-ss',en3Walk, {frameWidth: 480, frameHeight: 480});
+  }
+  
+  return { getBaseBackground, loadAllAssets };
 })();
 
 export default helper;
