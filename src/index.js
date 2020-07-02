@@ -2,6 +2,7 @@ import 'phaser';
 import tileSet from './assets/img/world/tileset.png';
 import Hero from './model/hero';
 import Helper from './helper';
+import testTileMap from './assets/maps/test_map.json';
 
 var config = {
   type: Phaser.AUTO,
@@ -27,7 +28,7 @@ function preload() {
   
   background = Helper.getBaseBackground(this);
   background.loadBackgroundAssets();
-
+  this.load.tilemapTiledJSON('map', testTileMap);
   this.load.image('world-tileset', tileSet);
   
   Hero.loadAssets(this);
@@ -43,27 +44,23 @@ function create() {
   
   background.renderBackground();
 
-  const level = [
-                  [2, 61, 62, 63, 64, 65, 66, 2],
-                  [118, 119, 120, 121, 122, 123, 124, 2],
-                  [2, 177, 178, 179, 180, 181, 182, 183, 2],
-                  [2, 2, 236, 237, 238, 239, 240, 241, 242, 2, 2, 2, 2, 2],
-                  [2, 293, 294, 295, 296, 2, 2, 2, 2, 2],
-                ];
-
-  const map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
-  const tiles = map.addTilesetImage('world-tileset');
-  const layer = map.createStaticLayer(0, tiles, width / 2 - 30, height / 2 - 30);
-
+  const map = this.add.tilemap('map');
+  const tiles = map.addTilesetImage('magic-cliffs', 'world-tileset');
+  const layer = map.createStaticLayer('Map', [tiles], 0, 0);
+  const collisionLayer = map.createStaticLayer('Collision', [tiles], 0, 0);
+  
   // const player = this.physics.add.sprite(width / 2, 0, 'hero');
   // player.setBounce(0.2);
   // player.setSize(400,250);
   // player.setScale(0.3);
-  
+  this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
   player = new Hero(this, width / 2, 0, 'hero');
   // bullet = new Bullet(this, 20, 20, 'weapons');
-  layer.setCollisionBetween(120,400);
-  this.physics.add.collider(player, layer);
+  // layer.setCollisionBetween(120,400);
+  collisionLayer.setCollisionBetween(405,408);
+  collisionLayer.alpha = 0;
+  this.physics.add.collider(player, collisionLayer);
+  collisionLayer.setCollisionByProperty({collides: true});
   // this.physics.add.existing(layer, true);
 
   // this.anims.create({
@@ -100,8 +97,6 @@ function update() {
   {
     player.jump();
   }
-
-
 
   background.updateBackground();
 }

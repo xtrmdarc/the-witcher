@@ -10,7 +10,7 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
     this.speed = 100;
     this.scene.add.existing(this);
     this.scene.physics.world.enableBody(this, 0);
-    this.setSize(200,250);
+    this.setSize(125,250);
     this.setScale(0.3);
     this.setBounce(0.2);
     this.setData('isDead', false);
@@ -93,7 +93,7 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
   jump() {
     if(this.shooting)
       return;
-    this.setVelocityY(-180);
+    this.setVelocityY(-200);
   }
 
   shoot() {
