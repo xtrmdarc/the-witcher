@@ -18,6 +18,7 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
     this.health = 100;
     this.createSpriteBehaviors();
     this.shooting = false;
+    this.bullets = this.scene.add.group();
   }
   
   static loadAssets(scene){
@@ -57,6 +58,7 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
       case 'hero-shoot' : {
         this.shooting = false;
         const newBullet = new Bullet(this.scene, this.x + (20 * ((this.flipX) ? 1 : -1)), this.y + this.body.halfHeight / 2 - 7, this, 'arrow');
+        this.bullets.add(newBullet);
         newBullet.fire(900, -10);
         break;
       }
@@ -99,7 +101,6 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
   shoot() {
     this.anims.play('hero-shoot', true);
     this.shooting = true;
-    
   }
 }
 

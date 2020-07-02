@@ -7,6 +7,8 @@ import en2Idle from './assets/img/enemy/enemy2/e002a_01idle.png';
 import en2Walk from './assets/img/enemy/enemy2/e002a_02walk.png';
 import en3Idle from './assets/img/enemy/enemy3/e003a_01idle.png';
 import en3Walk from './assets/img/enemy/enemy3/e003a_02walk.png';
+import testTileMap from './assets/maps/test_map.json';
+import tileSet from './assets/img/world/tileset.png';
 
 
 const helper = (() => {
@@ -75,6 +77,9 @@ const helper = (() => {
     scene.load.spritesheet('enemy2-walk-ss',en2Walk, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('enemy3',en3Idle, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('enemy3-walk-ss',en3Walk, {frameWidth: 480, frameHeight: 480});
+
+    scene.load.tilemapTiledJSON('map', testTileMap);
+    scene.load.image('world-tileset', tileSet);
   }
   
   return { getBaseBackground, loadAllAssets };
