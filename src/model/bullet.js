@@ -11,6 +11,7 @@ class Bullet extends Phaser.Physics.Arcade.Image {
     this.setScale(0.31);
     this.body.gravity.y = 0.003;
     this.flipX = !(shooter.flipX);
+    this.damage = 10;
   }
 
   static loadAssets(scene) {

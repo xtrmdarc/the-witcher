@@ -10,6 +10,8 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     this.setSize(sizeX, sizeY);
     this.setScale(0.4);
     this.createSpriteBehaviors();
+    this.health;
+    this.points;
   }
 
   createSpriteBehaviors() {
@@ -28,6 +30,20 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     });
 
     // this.on('animationcomplete', this.handleAnimationComplete, this);
+  }
+
+  takeDamage(dmg) {
+    this.health -= dmg;
+    this.setVelocity(0, 0);
+    return this.checkDeath();
+  }
+
+  checkDeath() {
+    if(this.health <= 0) {
+      this.destroy();
+      return true;
+    }
+    return false;
   }
 
   idle() {

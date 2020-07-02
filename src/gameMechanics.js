@@ -1,19 +1,34 @@
-class GameMechanics {
-  constructor(scene) {
-    this.scene = scene;
+const GameMechanics = (() =>  {
+  let gameScore = 0;
+  let scene;
+
+  const setScene = (pscene) => {
+    scene = pscene;
   }
 
-  applyMechanics() {
+  const applyMechanics = () => {
 
   }
 
-  addEntitiesCollision() {
-    this.scene.physics.add.collider(this.scene.player, this.scene.enemies);
-    this.scene.physics.add.collider(this.scene.enemies, this.scene.mapCollisionLayer);
-    this.scene.physics.add.collider(this.scene.player, this.scene.mapCollisionLayer);
-    this.scene.physics.add.collider(this.scene.player.bullets, this.scene.enemies);
+  const addScore = (points) => {
+    gameScore += points;
   }
 
-}
+  const addEntitiesCollision = () => {
+    scene.physics.add.collider(scene.player, scene.enemies);
+    scene.physics.add.collider(scene.enemies, scene.mapCollisionLayer);
+    scene.physics.add.collider(scene.player, scene.mapCollisionLayer);
+
+    const bulletHitEnemy = (bullet, enemy) => {
+      if( enemy.takeDamage(bullet.damage) )
+        addScore(enemy.points);
+      
+      bullet.destroy();
+    };
+
+    scene.physics.add.collider(scene.player.bullets, scene.enemies, bulletHitEnemy);
+  }
+  return { setScene, addEntitiesCollision };
+})();
 
 export default GameMechanics;

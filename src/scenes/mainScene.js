@@ -15,7 +15,7 @@ class MainScene extends Phaser.Scene {
     this.enemies;
     this.player;
     this.mapCollisionLayer;
-    this.gm = new GameMechanics(this);
+    GameMechanics.setScene(this);
   }
 
   preload() {
@@ -47,7 +47,7 @@ class MainScene extends Phaser.Scene {
     this.enemies.add(this.enemy1);
     this.enemies.add(this.enemy2);
     
-    this.gm.addEntitiesCollision();
+    GameMechanics.addEntitiesCollision();
   }
 
   update() {
@@ -70,7 +70,6 @@ class MainScene extends Phaser.Scene {
     if (cursors.up.isDown && this.player.body.blocked.down)
     {
       this.player.jump();
-      this.enemy1.idle();
     }
 
     this.background.updateBackground();
