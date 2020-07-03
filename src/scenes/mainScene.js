@@ -20,8 +20,6 @@ class MainScene extends Phaser.Scene {
     this.mapMobCollisionLayer;
     this.mainMap;
     this.environmentGroup;
-    GameMechanics.setScene(this);
-    UI.setPlayScene(this);
   }
 
   preload() {
@@ -32,7 +30,8 @@ class MainScene extends Phaser.Scene {
   }
 
   create() {
-    
+    GameMechanics.setScene(this);
+    UI.setPlayScene(this);
 
     const height = this.game.scale.height;
     const width = this.game.scale.width;
@@ -53,9 +52,9 @@ class MainScene extends Phaser.Scene {
     this.mapMobCollisionLayer.alpha = 0;
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    this.enemy1 = new Droppy(this, width / 2 + 100, 0);
-    this.enemy2 = new Wolfy(this,  width / 2 + 200, 0);
-    const enemy3 = new Ogre(this, width / 2 + 200, 0);
+    this.enemy1 = new Droppy(this, width / 2 + 100, height / 2);
+    this.enemy2 = new Wolfy(this,  width / 2 + 200, height / 2);
+    const enemy3 = new Ogre(this, width / 2 + 200, height / 2);
     this.player = new Hero(this, width / 2, 0, 'hero');
 
     this.enemies = this.add.group();
@@ -69,6 +68,7 @@ class MainScene extends Phaser.Scene {
     });
     GameMechanics.addEntitiesCollision();
     UI.loadUI(0, this.player.health);
+    GameMechanics.mobSpawning();
   }
 
   moveWorld(env, dir) {
@@ -87,6 +87,7 @@ class MainScene extends Phaser.Scene {
     else if (cursors.right.isDown)
     {
       this.player.move('right');
+      console.log(this.player.x, this);
       // this.moveWorld(this.environmentGroup, -1);
     }
     else
