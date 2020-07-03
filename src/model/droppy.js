@@ -3,7 +3,7 @@ import Enemy from './enemy';
 
 class Droppy extends Enemy{
   constructor(ctx, x, y) {
-    super(ctx, x, y, 'enemy1', 100, 100);
+    super(ctx, x, y, 'enemy1', 90, 90);
     this.health = 20;
     this.points = 40;
     this.damage = 5;
