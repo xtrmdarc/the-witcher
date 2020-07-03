@@ -18,7 +18,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     this.scene.anims.create({
       key: this.spriteId+'-idle',
       frames: this.scene.anims.generateFrameNumbers(this.spriteId, { start: 0, end: 13}),
-      frameRate: 10,
+      frameRate: 20,
       repeat: -1
     });
 

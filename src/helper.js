@@ -27,6 +27,7 @@ const helper = (() => {
       for (let i = 0; i < scene.sys.canvas.width / 112; i++) {
         const sky = scene.add.image(112 / 2 + (i * 112 ), scene.sys.canvas.height / 2, 'sky');
         sky.displayHeight = scene.sys.canvas.height;
+        sky.setScrollFactor(0);
       }
       
       
@@ -47,6 +48,7 @@ const helper = (() => {
         const sea = scene.add.image(112 / 2 + (i * 112 ), scene.sys.canvas.height / 4 * 3, 'sea')
         console.log(sea.width);
         sea.displayHeight = scene.sys.canvas.height / 2;
+        sea.setScrollFactor(0);
       }
 
       clouds.forEach(cloud => {
@@ -54,6 +56,7 @@ const helper = (() => {
         scene.physics.world.enableBody(cloud, 0);
         cloud.body.setAllowGravity(false);
         cloud.setVelocityX(15);
+        cloud.setScrollFactor(0);
       });
       
 

@@ -64,6 +64,16 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
       }
     }
   }
+  
+  takeDamage(dmg) {
+    this.health -= dmg;
+  }
+
+  checkIfDead() {
+    if(this.health <= 0 )
+      return true;
+    return false;
+  }
 
   idle() {
     if(this.shooting)

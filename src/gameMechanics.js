@@ -1,3 +1,5 @@
+import UI from "./gameUI";
+
 const GameMechanics = (() =>  {
   let gameScore = 0;
   let scene;
@@ -12,6 +14,7 @@ const GameMechanics = (() =>  {
 
   const addScore = (points) => {
     gameScore += points;
+    UI.displayScore(gameScore);
   }
 
   const addEntitiesCollision = () => {

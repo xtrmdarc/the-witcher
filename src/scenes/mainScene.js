@@ -5,6 +5,7 @@ import Enemy from '../model/enemy';
 import Droppy from '../model/droppy';
 import Wolfy from '../model/wolfy';
 import GameMechanics from '../gameMechanics';
+import UI from '../gameUI';
 
 class MainScene extends Phaser.Scene {
   constructor() {
@@ -15,7 +16,10 @@ class MainScene extends Phaser.Scene {
     this.enemies;
     this.player;
     this.mapCollisionLayer;
+    this.mainMap;
+    this.environmentGroup;
     GameMechanics.setScene(this);
+    UI.setPlayScene(this);
   }
 
   preload() {
@@ -26,16 +30,20 @@ class MainScene extends Phaser.Scene {
   }
 
   create() {
+    
+
     const height = this.game.scale.height;
     const width = this.game.scale.width;
-    
+    this.cameras.main.removeBounds();
+    this.environmentGroup = this.add.group();
     this.background.renderBackground();
 
     const map = this.add.tilemap('map');
     const tiles = map.addTilesetImage('magic-cliffs', 'world-tileset');
-    const layer = map.createStaticLayer('Map', [tiles], 0, 0);
+    this.mainMap = map.createStaticLayer('Map', [tiles], 0, 0);
+    
     this.mapCollisionLayer = map.createStaticLayer('Collision', [tiles], 0, 0);
-    this.mapCollisionLayer.setCollisionBetween(405,408);
+    this.mapCollisionLayer.setCollisionBetween(58,60);
     this.mapCollisionLayer.alpha = 0;
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -46,8 +54,19 @@ class MainScene extends Phaser.Scene {
     this.enemies = this.add.group();
     this.enemies.add(this.enemy1);
     this.enemies.add(this.enemy2);
-    
+    this.environmentGroup.add(this.mainMap);
+    this.environmentGroup.add(this.mapCollisionLayer);
+    this.enemies.getChildren().forEach(p => {
+      this.environmentGroup.add(p);
+    });
     GameMechanics.addEntitiesCollision();
+    UI.loadUI(0, this.player.health);
+  }
+
+  moveWorld(env, dir) {
+    env.getChildren().forEach(p => {
+      p.x += 4 * dir;
+    });
   }
 
   update() {
@@ -55,10 +74,12 @@ class MainScene extends Phaser.Scene {
     if (cursors.left.isDown)
     {
       this.player.move('left');
+      // this.moveWorld(this.environmentGroup, 1);
     }
     else if (cursors.right.isDown)
     {
       this.player.move('right');
+      // this.moveWorld(this.environmentGroup, -1);
     }
     else
     {
@@ -72,7 +93,13 @@ class MainScene extends Phaser.Scene {
       this.player.jump();
     }
 
+    this.enemies.getChildren().forEach(enemy => {
+      enemy.idle();
+    });
+
     this.background.updateBackground();
+
+    this.cameras.main.centerOnX(this.player.x);
   }
 }
 
