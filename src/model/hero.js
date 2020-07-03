@@ -2,6 +2,7 @@ import heroSS from '../assets/img/hero/c00a_01idle.png';
 import heroWalkSS from '../assets/img/hero/c00a_02walk.png';
 import shootSS from '../assets/img/hero/c00a_21shot.png';
 import dmgSS from '../assets/img/hero/c00a_07damage.png';
+import jumpSS from '../assets/img/hero/c00a_20jump.png';
 import Bullet from './bullet';
 
 class Hero extends Phaser.Physics.Arcade.Sprite {
@@ -21,6 +22,7 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
     this.shooting = false;
     this.bullets = this.scene.add.group();
     this.beingAttacked = false;
+    this.jumping = false;
   }
   
   static loadAssets(scene){
@@ -28,6 +30,7 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
     scene.load.spritesheet('hero-walk-ss', heroWalkSS, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('hero-shoot-ss', shootSS, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('hero-damage-ss', dmgSS, {frameWidth: 480, frameHeight: 480});
+    scene.load.spritesheet('hero-jump-ss', jumpSS, {frameWidth: 480, frameHeight: 480});
     Bullet.loadAssets(scene);
   }
 
@@ -60,6 +63,13 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
       repeat: 0
     });
 
+    this.scene.anims.create({
+      key: 'hero-jump',
+      frames: this.scene.anims.generateFrameNumbers('hero-jump-ss', { start: 0, end: 24 }),
+      frameRate: 30,
+      repeat: 0
+    });
+
     this.on('animationcomplete', this.handleAnimationComplete, this);
   }
 
@@ -74,6 +84,10 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
       };
       case 'hero-damage' : {
         this.beingAttacked = false;
+        break;
+      };
+      case 'hero-jump' : {
+        this.jumping = false;
         break;
       };
     }
@@ -92,26 +106,30 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
   }
 
   idle() {
-    if(this.shooting || this.beingAttacked)
+    if(this.body.blocked.down) this.jumping = false;
+
+    if(this.shooting || this.beingAttacked || this.jumping)
       return;
     this.setVelocityX(0);
     this.anims.play('idle', true);
   }
 
   move(dir) {
-    if(this.shooting || this.beingAttacked)
+    if(this.shooting || this.beingAttacked )
       return;
 
     switch(dir) {
       case 'right': {
         this.flipX = true;
-        this.anims.play('hero-walk', true);
+        if(!this.jumping)
+          this.anims.play('hero-walk', true);
         this.setVelocityX(this.speed);
         break;
       }
       case 'left': {
         this.flipX = false;
-        this.anims.play('hero-walk', true);
+        if(!this.jumping)
+          this.anims.play('hero-walk', true);
         this.setVelocityX(-this.speed);
         break;
       }
@@ -121,7 +139,9 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
   jump() {
     if(this.shooting)
       return;
-    this.setVelocityY(-200);
+    this.jumping = true;
+    this.anims.play('hero-jump', true);
+    this.setVelocityY(-300);
   }
 
   shoot() {

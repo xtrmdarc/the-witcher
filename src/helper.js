@@ -5,14 +5,17 @@ import en1Idle from './assets/img/enemy/enemy1/e001a_01idle.png';
 import en1Walk from './assets/img/enemy/enemy1/e001a_02walk.png';
 import en1Dmg from './assets/img/enemy/enemy1/e001a_07damage.png';
 import en1Attack from './assets/img/enemy/enemy1/e001a_10swinging.png';
+import en1Dead from './assets/img/enemy/enemy1/e001a_18down.png';
 import en2Idle from './assets/img/enemy/enemy2/e002a_01idle.png';
 import en2Walk from './assets/img/enemy/enemy2/e002a_02walk.png';
 import en2Dmg from './assets/img/enemy/enemy2/e002a_07damage.png';
 import en2Attack from './assets/img/enemy/enemy2/e002a_10swinging.png';
+import en2Dead from './assets/img/enemy/enemy2/e002a_18down.png';
 import en3Idle from './assets/img/enemy/enemy3/e003a_01idle.png';
 import en3Walk from './assets/img/enemy/enemy3/e003a_02walk.png';
 import en3Dmg from './assets/img/enemy/enemy3/e003a_07damage.png';
 import en3Attack from './assets/img/enemy/enemy3/e003a_10swinging.png';
+import en3Dead from './assets/img/enemy/enemy3/e003a_18down.png';
 import testTileMap from './assets/maps/test_map.json';
 import tileSet from './assets/img/world/tileset.png';
 
@@ -84,13 +87,17 @@ const helper = (() => {
     scene.load.spritesheet('enemy1-walk-ss', en1Walk, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('enemy1-damage-ss', en1Dmg, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('enemy1-attack-ss', en1Attack, {frameWidth: 480, frameHeight: 480});
+    scene.load.spritesheet('enemy1-dead-ss', en1Dead, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('enemy2', en2Idle, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('enemy2-walk-ss',en2Walk, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('enemy2-damage-ss',en2Dmg, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('enemy2-attack-ss', en2Attack, {frameWidth: 480, frameHeight: 480});
+    scene.load.spritesheet('enemy2-dead-ss', en2Dead, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('enemy3',en3Idle, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('enemy3-walk-ss',en3Walk, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('enemy3-attack-ss', en3Attack, {frameWidth: 480, frameHeight: 480});
+    scene.load.spritesheet('enemy3-damage-ss',en3Dmg, {frameWidth: 480, frameHeight: 480});
+    scene.load.spritesheet('enemy3-dead-ss', en3Dead, {frameWidth: 480, frameHeight: 480});
 
     scene.load.tilemapTiledJSON('map', testTileMap);
     scene.load.image('world-tileset', tileSet);

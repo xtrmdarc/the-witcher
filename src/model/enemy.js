@@ -13,9 +13,11 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     this.health;
     this.points;
     this.damage;
+    this.speed;
     this.beingAttacked = false;
     this.attacking = false;
-    this.setVelocityX(-10);
+    this.dying = false;
+    this.alive = true;
   }
 
   createSpriteBehaviors() {
@@ -28,7 +30,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     this.scene.anims.create({
       key: this.spriteId+'-walk',
-      frames: this.scene.anims.generateFrameNumbers(this.spriteId+'-walk-ss' , { start: 0, end: 10 }),
+      frames: this.scene.anims.generateFrameNumbers(this.spriteId+'-walk-ss' , { start: 0, end: 27 }),
       frameRate: 40,
       repeat: -1
     });
@@ -47,6 +49,13 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
       repeat: 0
     });
 
+    this.scene.anims.create({
+      key: this.spriteId+'-dead',
+      frames: this.scene.anims.generateFrameNumbers(this.spriteId+'-dead-ss' , { start: 0, end: 0 }),
+      frameRate: 1,
+      repeat: 0
+    });
+
     this.on('animationcomplete', this.handleAnimationComplete, this);
   }
 
@@ -59,21 +68,28 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
       case this.spriteId+'-attack' : {
         this.attacking = false;
         break;
-      }
+      };
+      case this.spriteId+'-dead' : {
+        this.destroy();
+        break;
+      };
     }
   }
 
   takeDamage(dmg) {
+    if(this.dying)
+      return;
     this.beingAttacked = true;
     this.health -= dmg;
-    this.setVelocity(0, 0);
+    this.setVelocity(-this.speed * 2/3, 0);
     this.anims.play(this.spriteId+'-damage', true);
     return this.checkDeath();
   }
 
   checkDeath() {
     if(this.health <= 0) {
-      this.destroy();
+      this.dying = true;
+      this.anims.play(this.spriteId+'-dead')
       return true;
     }
     return false;
@@ -84,20 +100,37 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
   }
 
   attack(player) {
+    if(this.attacking || this.dying)
+      return;
     this.attacking = true;
     this.anims.play(this.spriteId+'-attack', true);
     player.takeDamage(this.damage);
     this.setVelocityX(0);
   }
 
-  move() {
-
+  move(dir) {
+    switch(dir) {
+      case 'right': {
+        this.anims.play(this.spriteId+'-walk', true);
+        this.flipX = true;
+        this.setVelocityX(this.speed);
+        break;
+      };
+      case 'left': {
+        this.anims.play(this.spriteId+'-walk', true);
+        this.flipX = false;
+        this.setVelocityX(-this.speed);
+        break;
+      }
+    }
   }
 
   ia() {
-    if(this.beingAttacked == true || this.attacking == true)
+    if(this.beingAttacked || this.attacking || this.dying)
       return;
-    this.idle();
+
+    this.move('left');
+    // this.idle();
   }
 
 }

@@ -18,7 +18,7 @@ const GameMechanics = (() =>  {
   }
 
   const addEntitiesCollision = () => {
-    scene.physics.add.collider(scene.enemies, scene.mapCollisionLayer);
+    scene.physics.add.collider(scene.enemies, scene.mapMobCollisionLayer);
     scene.physics.add.collider(scene.player, scene.mapCollisionLayer);
 
     const bulletHitEnemy = (bullet, enemy) => {

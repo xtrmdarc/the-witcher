@@ -6,6 +6,7 @@ import Droppy from '../model/droppy';
 import Wolfy from '../model/wolfy';
 import GameMechanics from '../gameMechanics';
 import UI from '../gameUI';
+import Ogre from '../model/ogre';
 
 class MainScene extends Phaser.Scene {
   constructor() {
@@ -16,6 +17,7 @@ class MainScene extends Phaser.Scene {
     this.enemies;
     this.player;
     this.mapCollisionLayer;
+    this.mapMobCollisionLayer;
     this.mainMap;
     this.environmentGroup;
     GameMechanics.setScene(this);
@@ -46,14 +48,20 @@ class MainScene extends Phaser.Scene {
     this.mapCollisionLayer.setCollisionBetween(58,60);
     this.mapCollisionLayer.alpha = 0;
 
+    this.mapMobCollisionLayer = map.createStaticLayer('MobCollision', [tiles], 0, 0);
+    this.mapMobCollisionLayer.setCollisionBetween(58,60);
+    this.mapMobCollisionLayer.alpha = 0;
+
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.enemy1 = new Droppy(this, width / 2 + 100, 0);
     this.enemy2 = new Wolfy(this,  width / 2 + 200, 0);
+    const enemy3 = new Ogre(this, width / 2 + 200, 0);
     this.player = new Hero(this, width / 2, 0, 'hero');
 
     this.enemies = this.add.group();
     this.enemies.add(this.enemy1);
     this.enemies.add(this.enemy2);
+    this.enemies.add(enemy3);
     this.environmentGroup.add(this.mainMap);
     this.environmentGroup.add(this.mapCollisionLayer);
     this.enemies.getChildren().forEach(p => {
