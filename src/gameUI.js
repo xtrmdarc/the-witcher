@@ -22,7 +22,7 @@ const UI = (() => {
     playerHealthText.setText('Health : ' + healthPoints);
   }
 
-  return { setPlayScene, displayScore, loadUI };
+  return { setPlayScene, displayScore, loadUI, displayHealth };
 })();
 
 export default UI;

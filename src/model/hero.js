@@ -1,6 +1,7 @@
 import heroSS from '../assets/img/hero/c00a_01idle.png';
 import heroWalkSS from '../assets/img/hero/c00a_02walk.png';
 import shootSS from '../assets/img/hero/c00a_21shot.png';
+import dmgSS from '../assets/img/hero/c00a_07damage.png';
 import Bullet from './bullet';
 
 class Hero extends Phaser.Physics.Arcade.Sprite {
@@ -19,12 +20,14 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
     this.createSpriteBehaviors();
     this.shooting = false;
     this.bullets = this.scene.add.group();
+    this.beingAttacked = false;
   }
   
   static loadAssets(scene){
     scene.load.spritesheet('hero', heroSS, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('hero-walk-ss', heroWalkSS, {frameWidth: 480, frameHeight: 480});
     scene.load.spritesheet('hero-shoot-ss', shootSS, {frameWidth: 480, frameHeight: 480});
+    scene.load.spritesheet('hero-damage-ss', dmgSS, {frameWidth: 480, frameHeight: 480});
     Bullet.loadAssets(scene);
   }
 
@@ -50,6 +53,13 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
       repeat: 0
     });
 
+    this.scene.anims.create({
+      key: 'hero-damage',
+      frames: this.scene.anims.generateFrameNumbers('hero-damage-ss', { start: 0, end: 11 }),
+      frameRate: 40,
+      repeat: 0
+    });
+
     this.on('animationcomplete', this.handleAnimationComplete, this);
   }
 
@@ -61,12 +71,18 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
         this.bullets.add(newBullet);
         newBullet.fire(900, -10);
         break;
-      }
+      };
+      case 'hero-damage' : {
+        this.beingAttacked = false;
+        break;
+      };
     }
   }
   
   takeDamage(dmg) {
+    this.beingAttacked = true;
     this.health -= dmg;
+    this.anims.play('hero-damage');
   }
 
   checkIfDead() {
@@ -76,14 +92,14 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
   }
 
   idle() {
-    if(this.shooting)
+    if(this.shooting || this.beingAttacked)
       return;
     this.setVelocityX(0);
     this.anims.play('idle', true);
   }
 
   move(dir) {
-    if(this.shooting)
+    if(this.shooting || this.beingAttacked)
       return;
 
     switch(dir) {

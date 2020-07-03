@@ -18,7 +18,6 @@ const GameMechanics = (() =>  {
   }
 
   const addEntitiesCollision = () => {
-    scene.physics.add.collider(scene.player, scene.enemies);
     scene.physics.add.collider(scene.enemies, scene.mapCollisionLayer);
     scene.physics.add.collider(scene.player, scene.mapCollisionLayer);
 
@@ -29,6 +28,12 @@ const GameMechanics = (() =>  {
       bullet.destroy();
     };
 
+    const enemyHitPlayer = (player, enemy) => {
+      enemy.attack(player);
+      UI.displayHealth(player.health);
+    };
+
+    scene.physics.add.collider(scene.player, scene.enemies, enemyHitPlayer);
     scene.physics.add.collider(scene.player.bullets, scene.enemies, bulletHitEnemy);
   }
   return { setScene, addEntitiesCollision };

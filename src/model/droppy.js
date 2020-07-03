@@ -6,6 +6,7 @@ class Droppy extends Enemy{
     super(ctx, x, y, 'enemy1', 100, 100);
     this.health = 20;
     this.points = 40;
+    this.damage = 5;
     this.setOffset(this.width / 2 - this.body.width / 2 , this.height / 2 + this.body.height / 2 );
   }
 }

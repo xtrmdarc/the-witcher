@@ -94,7 +94,7 @@ class MainScene extends Phaser.Scene {
     }
 
     this.enemies.getChildren().forEach(enemy => {
-      enemy.idle();
+      enemy.ia();
     });
 
     this.background.updateBackground();
