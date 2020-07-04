@@ -2,6 +2,7 @@ const UI = (() => {
   let scene;
   let scoreText;
   let playerHealthText;
+  let timeText;
 
   const setPlayScene = (pscene) => {
     scene = pscene;
@@ -12,6 +13,8 @@ const UI = (() => {
     scoreText.setScrollFactor(0);
     playerHealthText = scene.add.text(40, 20, 'Heath: ' + healthPoints, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif',  fill: "#000" });
     playerHealthText.setScrollFactor(0);
+    timeText = scene.add.text(40, 60, 'Time Remaining: ' , { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif',  fill: "#000" });
+    timeText.setScrollFactor(0);
   };
 
   const displayScore = (score) => {
@@ -35,7 +38,27 @@ const UI = (() => {
     });
   };
 
-  return { setPlayScene, displayScore, loadUI, displayHealth, displayHitPoints };
+  const displayTime = (timeInSec) => {
+    const minutes = Math.floor(timeInSec / 60);
+    const sec = timeInSec % 60;
+    timeText.setText(`Time Remaining: ${minutes.toFixed(0)}:${('00'+sec.toFixed(0)).slice(-2)}`);
+  };
+
+  const applyBonusTime = (bonusTimeInSec) => {
+    console.log(timeText);
+    const newBonustTimeText = scene.add.text(timeText.x + timeText.width + 10, timeText.y, `+${bonusTimeInSec}` , { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif',  fill: "#000" });
+    newBonustTimeText.setScrollFactor(0);
+    scene.time.addEvent({
+      delay: 1000,
+      callback: function () {
+        newBonustTimeText.destroy();
+      },
+      callbackScope: this,
+      loop: false,
+    });
+  }
+
+  return { setPlayScene, displayScore, loadUI, displayHealth, displayHitPoints, displayTime, applyBonusTime };
 })();
 
 export default UI;

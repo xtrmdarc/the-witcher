@@ -30,7 +30,6 @@ class MainScene extends Phaser.Scene {
   }
 
   create() {
-    GameMechanics.setScene(this);
     UI.setPlayScene(this);
 
     const height = this.game.scale.height;
@@ -66,8 +65,9 @@ class MainScene extends Phaser.Scene {
     this.enemies.getChildren().forEach(p => {
       this.environmentGroup.add(p);
     });
-    GameMechanics.addEntitiesCollision();
     UI.loadUI(0, this.player.health);
+    GameMechanics.setScene(this);
+    GameMechanics.addEntitiesCollision();
     GameMechanics.mobSpawning();
   }
 
