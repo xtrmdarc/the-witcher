@@ -45,7 +45,6 @@ const UI = (() => {
   };
 
   const applyBonusTime = (bonusTimeInSec) => {
-    console.log(timeText);
     const newBonustTimeText = scene.add.text(timeText.x + timeText.width + 10, timeText.y, `+${bonusTimeInSec}` , { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif',  fill: "#000" });
     newBonustTimeText.setScrollFactor(0);
     scene.time.addEvent({

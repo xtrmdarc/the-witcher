@@ -51,15 +51,9 @@ class MainScene extends Phaser.Scene {
     this.mapMobCollisionLayer.alpha = 0;
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    this.enemy1 = new Droppy(this, width / 2 + 100, height / 2);
-    this.enemy2 = new Wolfy(this,  width / 2 + 200, height / 2);
-    const enemy3 = new Ogre(this, width / 2 + 200, height / 2);
     this.player = new Hero(this, width / 2, 0, 'hero');
 
     this.enemies = this.add.group();
-    this.enemies.add(this.enemy1);
-    this.enemies.add(this.enemy2);
-    this.enemies.add(enemy3);
     this.environmentGroup.add(this.mainMap);
     this.environmentGroup.add(this.mapCollisionLayer);
     this.enemies.getChildren().forEach(p => {
@@ -82,13 +76,10 @@ class MainScene extends Phaser.Scene {
     if (cursors.left.isDown)
     {
       this.player.move('left');
-      // this.moveWorld(this.environmentGroup, 1);
     }
     else if (cursors.right.isDown)
     {
       this.player.move('right');
-      console.log(this.player.x, this);
-      // this.moveWorld(this.environmentGroup, -1);
     }
     else
     {
@@ -107,7 +98,7 @@ class MainScene extends Phaser.Scene {
     });
 
     this.background.updateBackground();
-
+    GameMechanics.updateGameMechanics();
     this.cameras.main.centerOnX(this.player.x);
   }
 }

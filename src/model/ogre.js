@@ -7,7 +7,7 @@ class Ogre extends Enemy {
     this.health = 200;
     this.points = 100;
     this.damage = 30;
-    this.speed = 20;
+    this.speed = 30;
     
     this.setOffset(this.body.offset.x - this.width / 10 + 10 , this.body.offset.y);
   }

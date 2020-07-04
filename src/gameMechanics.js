@@ -1,5 +1,7 @@
 import UI from "./gameUI";
 import Droppy from "./model/droppy";
+import Wolfy from "./model/wolfy";
+import Ogre from "./model/ogre";
 
 const GameMechanics = (() =>  {
   let gameScore = 0;
@@ -7,6 +9,9 @@ const GameMechanics = (() =>  {
   let spawnPos;
   let gameTimer;
   let gameTimeInSec  = 120;
+  let timeDroppySpawn;
+  let timeWolfySpawn;
+  let timeOgreSpawn;
 
   const setScene = (pscene) => {
     scene = pscene;
@@ -54,11 +59,34 @@ const GameMechanics = (() =>  {
   };
 
   const mobSpawning = () => {
-    const timeDroppySpawn = scene.time.addEvent({
-      delay: Phaser.Math.Between(1000, 5000),
+    timeDroppySpawn = scene.time.addEvent({
+      delay: 4000,
       callback: function()
       {
-        const newMob = new Droppy(scene, spawnPos.x, spawnPos.y);
+        const xpos = Phaser.Math.Between(80,1190);
+        const newMob = new Droppy(scene, xpos, - 100);
+        scene.enemies.add(newMob);
+      },
+      callbackScope: this,
+      loop: true,
+    });
+
+    timeWolfySpawn = scene.time.addEvent({
+      delay: Phaser.Math.Between(7000, 10000),
+      callback: function()
+      {
+        const newMob = new Wolfy(scene, spawnPos.x, spawnPos.y);
+        scene.enemies.add(newMob);
+      },
+      callbackScope: this,
+      loop: true,
+    });
+
+    timeOgreSpawn = scene.time.addEvent({
+      delay: Phaser.Math.Between(20000, 25000),
+      callback: function()
+      {
+        const newMob = new Ogre(scene, spawnPos.x, spawnPos.y);
         scene.enemies.add(newMob);
       },
       callbackScope: this,
@@ -72,7 +100,12 @@ const GameMechanics = (() =>  {
     UI.displayTime(gameTimeInSec);
   };
 
-  return { setScene, addEntitiesCollision, mobSpawning};
+  const updateGameMechanics = () => {
+    if(gameScore > 400)
+      timeDroppySpawn.delay = 1000;
+  };
+
+  return { setScene, addEntitiesCollision, mobSpawning, updateGameMechanics};
 })();
 
 export default GameMechanics;
