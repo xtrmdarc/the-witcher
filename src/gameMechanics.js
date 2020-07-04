@@ -64,7 +64,6 @@ const GameMechanics = (() =>  {
       callbackScope: this,
       loop: true,
     });
-    // timeDroppySpawn.destroy();
 
   };
 
