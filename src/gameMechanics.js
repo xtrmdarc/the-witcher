@@ -32,6 +32,10 @@ const GameMechanics = (() =>  {
     UI.displayScore(gameScore);
   };
 
+  const getScore = () => {
+    return gameScore;
+  }
+
   const addEntitiesCollision = () => {
     scene.physics.add.collider(scene.enemies, scene.mapMobCollisionLayer);
     scene.physics.add.collider(scene.player, scene.mapCollisionLayer);
@@ -97,6 +101,9 @@ const GameMechanics = (() =>  {
 
   const updateGameTimer = () => {
     gameTimeInSec -= 1;
+
+    if (gameTimeInSec <= 0)
+      scene.stop();
     UI.displayTime(gameTimeInSec);
   };
 
@@ -105,7 +112,7 @@ const GameMechanics = (() =>  {
       timeDroppySpawn.delay = 1000;
   };
 
-  return { setScene, addEntitiesCollision, mobSpawning, updateGameMechanics};
+  return { setScene, addEntitiesCollision, mobSpawning, updateGameMechanics, getScore };
 })();
 
 export default GameMechanics;

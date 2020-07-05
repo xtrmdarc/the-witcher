@@ -10,7 +10,7 @@ import Ogre from '../model/ogre';
 
 class MainScene extends Phaser.Scene {
   constructor() {
-    super({ scene: 'MainScene' });
+    super({ key: 'MainScene' });
     this.background;
     this.platforms;
     this.bullet;

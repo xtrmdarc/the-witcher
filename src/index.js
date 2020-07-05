@@ -1,5 +1,7 @@
 import 'phaser';
 import MainScene from './scenes/mainScene';
+import MainMenuScene from './scenes/mainMenuScene';
+import GameOverScene from './scenes/gameOverScene';
 
 var config = {
   type: Phaser.AUTO,
@@ -13,7 +15,9 @@ var config = {
     },
   },
   scene: [
+    MainMenuScene,
     MainScene,
+    GameOverScene,
   ],
 };
 

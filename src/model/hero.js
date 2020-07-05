@@ -101,7 +101,8 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
         break;
       };
       case 'hero-dead' : {
-        this.scene.stop();
+        this.scene.scene.stop();
+        this.scene.scene.start('GameOverScene');
         break;
       };
     }
@@ -119,6 +120,7 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
   checkIfDead() {
     if(this.health <= 0 )
     {
+      this.health = 0;
       this.alive = false;      
       this.anims.play('hero-dead', true);
       return true;
