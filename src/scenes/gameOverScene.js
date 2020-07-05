@@ -37,11 +37,19 @@ class GameOverScene extends Phaser.Scene {
     const scoreInput = this.add.dom(width / 2, 300).createFromHTML(inputHtml);
 
     const submitBtn = Helper.createBtn(this, width / 2, 370, 'submit', () => {
-      console.log('asda');
+      if (document.querySelector('#score-input').value.trim().length <= 0) return;
+      const scene = this;
+      storage.submitScore(document.querySelector('#score-input').value.trim(), GameMechanics.getScore()).then( json => {
+        scene.scene.start('LeaderboardScene');
+        scene.scene.stop();
+      });
     });
     submitBtn.setScale(0.6);
 
-    const leaderboardBtn = this.add.image(width / 2, 520, 'leaderboard');
+    const leaderboardBtn = Helper.createBtn(this, width / 2, 520, 'leaderboard', () => {
+      this.scene.start('LeaderboardScene');
+      this.scene.stop();
+    });
     leaderboardBtn.setScale(0.4);
     const restartBtn = Helper.createBtn(this, width / 2, 580, 'restart', () => {
       this.scene.start('MainScene');
@@ -50,9 +58,6 @@ class GameOverScene extends Phaser.Scene {
     restartBtn.setScale(0.4);
 
     storage.fetchScores().then( json => console.log(json));
-    // storage.submitScore('xtrmdarc', 1300).then( json => {
-    //   console.log(json);
-    // });
   }
 
   update() {

@@ -19,6 +19,8 @@ const GameMechanics = (() =>  {
       x: 1490,
       y: scene.game.scale.height / 2
     };
+    gameTimeInSec = 120;
+    gameScore = 0;
     UI.displayTime(gameTimeInSec);
     gameTimer = scene.time.addEvent({delay : 1000, loop: true, callbackScope: this, callback: updateGameTimer})
   }
@@ -48,8 +50,8 @@ const GameMechanics = (() =>  {
         UI.displayTime(gameTimeInSec);
         UI.applyBonusTime(bonusTime);
       }
-      
-      UI.displayHitPoints(enemy, bullet.damage);
+      if (!enemy.dying)
+        UI.displayHitPoints(enemy, bullet.damage);
       bullet.destroy();
     };
 

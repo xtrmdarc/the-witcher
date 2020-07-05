@@ -2,6 +2,7 @@ import 'phaser';
 import MainScene from './scenes/mainScene';
 import MainMenuScene from './scenes/mainMenuScene';
 import GameOverScene from './scenes/gameOverScene';
+import LeaderboardScene from './scenes/leaderboardScene';
 
 var config = {
   type: Phaser.AUTO,
@@ -22,6 +23,7 @@ var config = {
     GameOverScene,
     MainMenuScene,
     MainScene,
+    LeaderboardScene,
   ],
 };
 
