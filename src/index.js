@@ -7,6 +7,10 @@ var config = {
   type: Phaser.AUTO,
   width: window.innerWidth,
   height: window.innerHeight - 5,
+  parent: 'divId',
+  dom: {
+    createContainer: true,
+  },
   physics: {
     default: 'arcade',
     arcade: {
@@ -15,9 +19,9 @@ var config = {
     },
   },
   scene: [
+    GameOverScene,
     MainMenuScene,
     MainScene,
-    GameOverScene,
   ],
 };
 

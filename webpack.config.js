@@ -15,6 +15,12 @@ module.exports = {
         ],
       },
       {
+        test: /\.html$/,
+        use: [
+          'html-loader',
+        ],
+      },
+      {
         type: "javascript/auto",
         test: /\.json$/,
         use: [

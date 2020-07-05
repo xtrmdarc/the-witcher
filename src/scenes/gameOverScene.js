@@ -2,6 +2,11 @@ import 'phaser';
 import Helper from '../helper';
 import gameOverImg from '../assets/img/game_over.png';
 import GameMechanics from '../gameMechanics';
+import inputHtml from '../assets/html/scoreInput.html';
+import leaderboardImg from '../assets/img/leaderboard.png';
+import submitImg from '../assets/img/submit_button.png';
+import restartImg from '../assets/img/restart.png';
+import instructionsImg from '../assets/img/restart.png';
 
 class GameOverScene extends Phaser.Scene {
   constructor(config){
@@ -10,6 +15,11 @@ class GameOverScene extends Phaser.Scene {
 
   preload() {
     this.load.image('gameOver', gameOverImg);
+    this.load.image('leaderboard', leaderboardImg);
+    this.load.image('submit', submitImg);
+    this.load.image('restart', restartImg);
+    // this.load.image('instructions', instructionsImg);
+
     this.background = Helper.getBaseBackground(this);
     this.background.loadBackgroundAssets();
   }
@@ -17,13 +27,26 @@ class GameOverScene extends Phaser.Scene {
   create() {
     const height = this.game.scale.height;
     const width = this.game.scale.width;
-
     
     this.background.renderBackground();
     const gameOverTitle = this.add.image(width / 2, 100, 'gameOver');
     const finalScore = this.add.text(width / 2, 200, 'Final Score: ' + GameMechanics.getScore(), { fontSize: 50, fill: '#000'});
     finalScore.x -= finalScore.displayWidth / 2;
 
+    const scoreInput = this.add.dom(width / 2, 300).createFromHTML(inputHtml);
+
+    const submitBtn = Helper.createBtn(this, width / 2, 370, 'submit', () => {
+      console.log('asda');
+    });
+    submitBtn.setScale(0.6);
+
+    const leaderboardBtn = this.add.image(width / 2, 520, 'leaderboard');
+    leaderboardBtn.setScale(0.4);
+    const restartBtn = Helper.createBtn(this, width / 2, 580, 'restart', () => {
+      this.scene.start('MainScene');
+      this.scene.stop();
+    });
+    restartBtn.setScale(0.4);
   }
 
   update() {

@@ -104,7 +104,20 @@ const helper = (() => {
     
   }
   
-  return { getBaseBackground, loadAllAssets };
+  const createBtn = (scene, x, y, img, onClick) => {
+    const newBtn = scene.add.image(x, y, img);
+    newBtn.setInteractive();
+    newBtn.on('pointerover', function() {
+      newBtn.alpha = 0.7;
+    }, scene);
+    newBtn.on('pointerout', function() {
+      newBtn.alpha = 1;
+    }, scene);
+    newBtn.on('pointerdown', onClick, scene);
+    return newBtn;
+  }
+  
+  return { getBaseBackground, loadAllAssets, createBtn };
 })();
 
 export default helper;
