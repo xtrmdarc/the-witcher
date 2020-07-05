@@ -20,9 +20,9 @@ var config = {
     },
   },
   scene: [
-    GameOverScene,
     MainMenuScene,
     MainScene,
+    GameOverScene,
     LeaderboardScene,
   ],
 };

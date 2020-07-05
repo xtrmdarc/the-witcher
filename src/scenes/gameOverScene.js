@@ -6,7 +6,6 @@ import inputHtml from '../assets/html/scoreInput.html';
 import leaderboardImg from '../assets/img/leaderboard.png';
 import submitImg from '../assets/img/submit_button.png';
 import restartImg from '../assets/img/restart.png';
-import instructionsImg from '../assets/img/restart.png';
 import storage from '../storage';
 
 class GameOverScene extends Phaser.Scene {
@@ -19,7 +18,6 @@ class GameOverScene extends Phaser.Scene {
     this.load.image('leaderboard', leaderboardImg);
     this.load.image('submit', submitImg);
     this.load.image('restart', restartImg);
-    // this.load.image('instructions', instructionsImg);
 
     this.background = Helper.getBaseBackground(this);
     this.background.loadBackgroundAssets();

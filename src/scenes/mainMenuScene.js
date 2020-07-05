@@ -3,6 +3,9 @@ import 'phaser';
 import playButton from '../assets/img/play_button.png';
 import title from '../assets/img/the_witcher_text.png'
 import Helper from '../helper';
+import leaderboardImg from '../assets/img/leaderboard.png';
+import instructionsImg from '../assets/img/instructions.png';
+
 
 class MainMenuScene extends Phaser.Scene {
   constructor(config) {
@@ -14,6 +17,9 @@ class MainMenuScene extends Phaser.Scene {
   preload() {
     this.load.image('playButton', playButton);
     this.load.image('title', title);
+    this.load.image('leaderboard', leaderboardImg);
+    this.load.image('instructions', instructionsImg);
+    
     this.background = Helper.getBaseBackground(this);
     this.background.loadBackgroundAssets();
   }
@@ -23,19 +29,24 @@ class MainMenuScene extends Phaser.Scene {
     const gameHeight = this.game.scale.height;
     this.background.renderBackground();
     const titleText = this.add.image(gameWidth / 2, 100, 'title');
-    const playButton = this.add.image(gameWidth / 2, gameHeight / 2, 'playButton');
-    playButton.setInteractive();
-    playButton.on('pointerover', function() {
-      playButton.alpha = 0.7;
-    }, this);
-    playButton.on('pointerout', function() {
-      playButton.alpha = 1;
-    }, this);
-    playButton.on('pointerdown', function() {
+    const playButton = Helper.createBtn(this, gameWidth / 2, gameHeight / 2, 'playButton', () => {
       this.scene.start('MainScene');
       this.scene.stop();
-    }, this);
+    });
     playButton.setScale(0.7);
+
+    const leaderboardBtn = Helper.createBtn(this, gameWidth / 2, gameHeight / 2 + 150, 'leaderboard', () => {
+      this.scene.start('LeaderboardScene');
+      this.scene.stop();
+    });
+    const instructionsBtn = Helper.createBtn(this, gameWidth / 2, gameHeight / 2 + 200, 'instructions', () => {
+      // this.scene.start('LeaderboardScene');
+      // this.scene.stop();
+    });
+
+    leaderboardBtn.setScale(0.4);
+    instructionsBtn.setScale(0.4);
+
     titleText.setScale(0.8);
   }
 
