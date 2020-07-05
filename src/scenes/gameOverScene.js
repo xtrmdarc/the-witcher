@@ -7,6 +7,7 @@ import leaderboardImg from '../assets/img/leaderboard.png';
 import submitImg from '../assets/img/submit_button.png';
 import restartImg from '../assets/img/restart.png';
 import instructionsImg from '../assets/img/restart.png';
+import storage from '../storage';
 
 class GameOverScene extends Phaser.Scene {
   constructor(config){
@@ -47,6 +48,11 @@ class GameOverScene extends Phaser.Scene {
       this.scene.stop();
     });
     restartBtn.setScale(0.4);
+
+    storage.fetchScores().then( json => console.log(json));
+    // storage.submitScore('xtrmdarc', 1300).then( json => {
+    //   console.log(json);
+    // });
   }
 
   update() {
