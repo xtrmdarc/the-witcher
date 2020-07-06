@@ -24,7 +24,7 @@ At the end, you can enter your name in the leaderboard and check the highest sco
 - Use the **up arrow key** to jump to evade enemi attacks.
 - Use the **space bar** to shoot Pipoya's arrows.
 
-You can play the game online clicking [here][https://agile-mesa-29255.herokuapp.com/] or locally following these steps:
+You can play the game online clicking [here](https://agile-mesa-29255.herokuapp.com/) or locally following these steps:
 
 * Click on the green button "Clone or Download"
 * Click on Download ZIP
@@ -87,7 +87,7 @@ Tip : Don't fight this guy if you want to remain alive.
 
 <div>
 <div style="width: 200px">
-<img style="float:left" height="100" src="./src/assets/img/enemy/enemy3/ogre.png">
+<img style="float:left" height="100" src="./src/assets/img/enemy/enemy3/Ogre.png">
 </div>
 - Role: Enemy </br>
 - Health: 200 </br>
