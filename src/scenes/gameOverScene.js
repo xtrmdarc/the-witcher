@@ -24,8 +24,6 @@ class GameOverScene extends Phaser.Scene {
   }
 
   create() {
-    // const height = this.game.scale.height;
-    // const width = this.game.scale.width;
     const { width } = this.game.scale;
 
     this.background.renderBackground();

@@ -107,7 +107,7 @@ const GameMechanics = (() => {
   };
 
   const checkForDeathOutOfBounds = () => {
-    if(scene.player.y - scene.player.body.height / 2 > scene.game.scale.height) {
+    if (scene.player.y - scene.player.body.height / 2 > scene.game.scale.height) {
       scene.scene.start('GameOverScene');
       scene.scene.stop();
     }

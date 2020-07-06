@@ -17,8 +17,6 @@ class LeaderboardScene extends Phaser.Scene {
 
   create() {
     const { width } = this.game.scale;
-    // const height = this.game.scale.height;
-    // const width = this.game.scale.width;
     this.background = Helper.getBaseBackground(this);
     this.background.renderBackground();
 
@@ -27,8 +25,7 @@ class LeaderboardScene extends Phaser.Scene {
     const lbUl = document.querySelector('#leaderboard');
 
     ApiStorage.fetchScores().then((json) => {
-      const scores = json.result.sort((a, b) => b.score - a.score );
-      console.log(scores);
+      const scores = json.result.sort((a, b) => b.score - a.score);
       for (let i = 0; i < scores.length; i += 1) {
         const newLi = document.createElement('li');
         const usernameSpan = document.createElement('span');

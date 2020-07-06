@@ -19,8 +19,6 @@ class MainScene extends Phaser.Scene {
   create() {
     UI.setPlayScene(this);
     const { width } = this.game.scale;
-    // const height = this.game.scale.height;
-    // const width = this.game.scale.width;
     this.cameras.main.removeBounds();
     this.environmentGroup = this.add.group();
     this.background.renderBackground();
