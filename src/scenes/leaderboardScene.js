@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 import Helper from '../helper';
 import leaderBoardHtml from '../assets/html/leaderboard.html';
 import leaderBoardTitleImg from '../assets/img/leaderboard_title.png';
@@ -6,8 +6,8 @@ import restartImg from '../assets/img/restart.png';
 import ApiStorage from '../storage';
 
 class LeaderboardScene extends Phaser.Scene {
-  constructor(config) {
-    super({key: 'LeaderboardScene'});
+  constructor() {
+    super({ key: 'LeaderboardScene' });
   }
 
   preload() {
@@ -16,19 +16,19 @@ class LeaderboardScene extends Phaser.Scene {
   }
 
   create() {
-    const height = this.game.scale.height;
-    const width = this.game.scale.width;
-    const scene = this;
+    const { width } = this.game.scale;
+    // const height = this.game.scale.height;
+    // const width = this.game.scale.width;
     this.background = Helper.getBaseBackground(this);
     this.background.renderBackground();
-    
-    const gameOverTitle = this.add.image(width / 2, 100, 'leaderboardTitle');
-    const leaderBoard = this.add.dom(width / 2, 350).createFromHTML(leaderBoardHtml);
+
+    this.add.image(width / 2, 100, 'leaderboardTitle');
+    this.add.dom(width / 2, 350).createFromHTML(leaderBoardHtml);
     const lbUl = document.querySelector('#leaderboard');
 
     ApiStorage.fetchScores().then((json) => {
       const scores = json.result;
-      for (let i = 0; i < scores.length ; i +=1) {
+      for (let i = 0; i < scores.length; i += 1) {
         const newLi = document.createElement('li');
         const usernameSpan = document.createElement('span');
         const scoreSpan = document.createElement('span');

@@ -1,10 +1,10 @@
-import 'phaser';
+import Phaser from 'phaser';
 import MainScene from './scenes/mainScene';
 import MainMenuScene from './scenes/mainMenuScene';
 import GameOverScene from './scenes/gameOverScene';
 import LeaderboardScene from './scenes/leaderboardScene';
 
-var config = {
+const config = {
   type: Phaser.AUTO,
   width: window.innerWidth,
   height: window.innerHeight - 5,
@@ -15,8 +15,8 @@ var config = {
   physics: {
     default: 'arcade',
     arcade: {
-        gravity: { y: 300 },
-        debug: false,
+      gravity: { y: 300 },
+      debug: false,
     },
   },
   scene: [
@@ -27,4 +27,4 @@ var config = {
   ],
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config); // eslint-disable-line no-unused-vars

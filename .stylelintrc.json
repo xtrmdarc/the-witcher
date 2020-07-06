@@ -9,6 +9,9 @@
     "build/**",
     "dist/**",
     "**/reset*.css",
-    "**/bootstrap*.css"
+    "**/bootstrap*.css",
+    "**/**.png",
+    "**/**.json",
+    "Procfile"
   ]
 }

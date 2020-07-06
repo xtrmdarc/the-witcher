@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 import Helper from '../helper';
 import gameOverImg from '../assets/img/game_over.png';
 import GameMechanics from '../gameMechanics';
@@ -9,8 +9,8 @@ import restartImg from '../assets/img/restart.png';
 import storage from '../storage';
 
 class GameOverScene extends Phaser.Scene {
-  constructor(config){
-    super({key: 'GameOverScene'});
+  constructor() {
+    super({ key: 'GameOverScene' });
   }
 
   preload() {
@@ -24,20 +24,22 @@ class GameOverScene extends Phaser.Scene {
   }
 
   create() {
-    const height = this.game.scale.height;
-    const width = this.game.scale.width;
-    
+    // const height = this.game.scale.height;
+    // const width = this.game.scale.width;
+    const { width } = this.game.scale;
+
     this.background.renderBackground();
-    const gameOverTitle = this.add.image(width / 2, 100, 'gameOver');
-    const finalScore = this.add.text(width / 2, 200, 'Final Score: ' + GameMechanics.getScore(), { fontSize: 50, fill: '#000'});
+    this.add.image(width / 2, 100, 'gameOver');
+
+    const finalScore = this.add.text(width / 2, 200, `Final Score: ${GameMechanics.getScore()}`, { fontSize: 50, fill: '#000' });
     finalScore.x -= finalScore.displayWidth / 2;
 
-    const scoreInput = this.add.dom(width / 2, 300).createFromHTML(inputHtml);
+    this.add.dom(width / 2, 300).createFromHTML(inputHtml);
 
     const submitBtn = Helper.createBtn(this, width / 2, 370, 'submit', () => {
       if (document.querySelector('#score-input').value.trim().length <= 0) return;
       const scene = this;
-      storage.submitScore(document.querySelector('#score-input').value.trim(), GameMechanics.getScore()).then( json => {
+      storage.submitScore(document.querySelector('#score-input').value.trim(), GameMechanics.getScore()).then(json => { // eslint-disable-line no-unused-vars
         scene.scene.start('LeaderboardScene');
         scene.scene.stop();
       });
@@ -54,14 +56,11 @@ class GameOverScene extends Phaser.Scene {
       this.scene.stop();
     });
     restartBtn.setScale(0.4);
-
-    storage.fetchScores().then( json => console.log(json));
   }
 
   update() {
     this.background.updateBackground();
   }
-
 }
 
 export default GameOverScene;

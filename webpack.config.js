@@ -4,7 +4,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname,'dist'),
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -21,13 +21,13 @@ module.exports = {
         ],
       },
       {
-        type: "javascript/auto",
+        type: 'javascript/auto',
         test: /\.json$/,
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
-                name: "[name].[ext]",
+              name: '[name].[ext]',
             },
           },
         ],

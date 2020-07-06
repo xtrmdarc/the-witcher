@@ -1,25 +1,12 @@
-import 'phaser';
+import Phaser from 'phaser';
 import Helper from '../helper';
 import Hero from '../model/hero';
-import Enemy from '../model/enemy';
-import Droppy from '../model/droppy';
-import Wolfy from '../model/wolfy';
 import GameMechanics from '../gameMechanics';
 import UI from '../gameUI';
-import Ogre from '../model/ogre';
 
 class MainScene extends Phaser.Scene {
   constructor() {
     super({ key: 'MainScene' });
-    this.background;
-    this.platforms;
-    this.bullet;
-    this.enemies;
-    this.player;
-    this.mapCollisionLayer;
-    this.mapMobCollisionLayer;
-    this.mainMap;
-    this.environmentGroup;
   }
 
   preload() {
@@ -31,9 +18,9 @@ class MainScene extends Phaser.Scene {
 
   create() {
     UI.setPlayScene(this);
-
-    const height = this.game.scale.height;
-    const width = this.game.scale.width;
+    const { width } = this.game.scale;
+    // const height = this.game.scale.height;
+    // const width = this.game.scale.width;
     this.cameras.main.removeBounds();
     this.environmentGroup = this.add.group();
     this.background.renderBackground();
@@ -41,13 +28,13 @@ class MainScene extends Phaser.Scene {
     const map = this.add.tilemap('map');
     const tiles = map.addTilesetImage('magic-cliffs', 'world-tileset');
     this.mainMap = map.createStaticLayer('Map', [tiles], 0, 0);
-    
+
     this.mapCollisionLayer = map.createStaticLayer('Collision', [tiles], 0, 0);
-    this.mapCollisionLayer.setCollisionBetween(58,60);
+    this.mapCollisionLayer.setCollisionBetween(58, 60);
     this.mapCollisionLayer.alpha = 0;
 
     this.mapMobCollisionLayer = map.createStaticLayer('MobCollision', [tiles], 0, 0);
-    this.mapMobCollisionLayer.setCollisionBetween(58,60);
+    this.mapMobCollisionLayer.setCollisionBetween(58, 60);
     this.mapMobCollisionLayer.alpha = 0;
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -65,31 +52,21 @@ class MainScene extends Phaser.Scene {
     GameMechanics.mobSpawning();
   }
 
-  moveWorld(env, dir) {
-    env.getChildren().forEach(p => {
-      p.x += 4 * dir;
-    });
-  }
-
   update() {
     const cursors = this.input.keyboard.createCursorKeys();
-    if (cursors.left.isDown)
-    {
+    if (cursors.left.isDown) {
       this.player.move('left');
-    }
-    else if (cursors.right.isDown)
-    {
+    } else if (cursors.right.isDown) {
       this.player.move('right');
-    }
-    else
-    {
+    } else {
       this.player.idle();
     }
-    if(cursors.space._justDown) {
+
+    if (cursors.space._justDown) { // eslint-disable-line no-underscore-dangle
       this.player.shoot();
     }
-    if (cursors.up.isDown && this.player.body.blocked.down)
-    {
+
+    if (cursors.up.isDown && this.player.body.blocked.down) {
       this.player.jump();
     }
 

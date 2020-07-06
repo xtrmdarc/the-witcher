@@ -1,17 +1,14 @@
-import 'phaser';
-// import launchScreen from '../assets/img/main_menu.png';
+import Phaser from 'phaser';
 import playButton from '../assets/img/play_button.png';
-import title from '../assets/img/the_witcher_text.png'
+import title from '../assets/img/the_witcher_text.png';
 import Helper from '../helper';
 import leaderboardImg from '../assets/img/leaderboard.png';
 import instructionsImg from '../assets/img/instructions.png';
 
 
 class MainMenuScene extends Phaser.Scene {
-  constructor(config) {
-    super({key: 'MainMenuScene'});
-    this.launchScreenImg;
-    this.background;
+  constructor() {
+    super({ key: 'MainMenuScene' });
   }
 
   preload() {
@@ -19,7 +16,7 @@ class MainMenuScene extends Phaser.Scene {
     this.load.image('title', title);
     this.load.image('leaderboard', leaderboardImg);
     this.load.image('instructions', instructionsImg);
-    
+
     this.background = Helper.getBaseBackground(this);
     this.background.loadBackgroundAssets();
   }
