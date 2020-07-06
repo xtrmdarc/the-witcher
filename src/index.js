@@ -3,6 +3,7 @@ import MainScene from './scenes/mainScene';
 import MainMenuScene from './scenes/mainMenuScene';
 import GameOverScene from './scenes/gameOverScene';
 import LeaderboardScene from './scenes/leaderboardScene';
+import InstructionsScene from './scenes/instructionsScene';
 
 const config = {
   type: Phaser.AUTO,
@@ -22,6 +23,7 @@ const config = {
   scene: [
     MainMenuScene,
     MainScene,
+    InstructionsScene,
     GameOverScene,
     LeaderboardScene,
   ],

@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import GameMock from "./gameMock";
-import Hero from "../src/model/hero";
-import MainScene from "../src/scenes/mainScene";
+import GameMock from './gameMock';
+import Hero from '../src/model/hero';
+import MainScene from '../src/scenes/mainScene';
 jest.mock('phaser');
 console.log(GameMock);
 

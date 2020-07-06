@@ -37,8 +37,8 @@ class MainMenuScene extends Phaser.Scene {
       this.scene.stop();
     });
     const instructionsBtn = Helper.createBtn(this, gameWidth / 2, gameHeight / 2 + 200, 'instructions', () => {
-      // this.scene.start('LeaderboardScene');
-      // this.scene.stop();
+      this.scene.start('InstructionsScene');
+      this.scene.stop();
     });
 
     leaderboardBtn.setScale(0.4);

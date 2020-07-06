@@ -92,7 +92,7 @@ Tip : Don't fight this guy if you want to remain alive.
 - Role: Enemy </br>
 - Health: 200 </br>
 - Damage: 30 </br>
-- Weapon: Maze </br>
+- Weapon: Mace </br>
 - Points: 100 </br>
 
 </div>

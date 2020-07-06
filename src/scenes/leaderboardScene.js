@@ -27,7 +27,8 @@ class LeaderboardScene extends Phaser.Scene {
     const lbUl = document.querySelector('#leaderboard');
 
     ApiStorage.fetchScores().then((json) => {
-      const scores = json.result;
+      const scores = json.result.sort((a, b) => b.score - a.score );
+      console.log(scores);
       for (let i = 0; i < scores.length; i += 1) {
         const newLi = document.createElement('li');
         const usernameSpan = document.createElement('span');
