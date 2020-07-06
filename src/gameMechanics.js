@@ -106,8 +106,16 @@ const GameMechanics = (() => {
     });
   };
 
+  const checkForDeathOutOfBounds = () => {
+    if(scene.player.y - scene.player.body.height / 2 > scene.game.scale.height) {
+      scene.scene.start('GameOverScene');
+      scene.scene.stop();
+    }
+  };
+
   const updateGameMechanics = () => {
     if (gameScore > 400) timeDroppySpawn.delay = 1000;
+    checkForDeathOutOfBounds();
   };
 
   return {
