@@ -12,6 +12,7 @@
     "**/bootstrap*.css",
     "**/**.png",
     "**/**.json",
-    "Procfile"
+    "Procfile",
+    "README.md"
   ]
 }
