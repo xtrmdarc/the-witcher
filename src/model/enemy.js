@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 
 class Enemy extends Phaser.Physics.Arcade.Sprite {
   constructor(ctx, x, y, spriteId, sizeX, sizeY) {
+    y -= sizeY / 2;
     super(ctx, x, y, spriteId);
     this.spriteId = spriteId;
     this.scene = ctx;
