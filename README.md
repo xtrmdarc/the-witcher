@@ -18,6 +18,9 @@ You get points after killing an enemy. Each enemy will give a different fixed nu
 
 At the end, you can enter your name in the leaderboard and check the highest scores.
 
+# Live version
+[Play it online here](https://agile-mesa-29255.herokuapp.com/)
+
 ## How to play
 
 - Use the **right and left arrow keys** to move Pipoya around the map.

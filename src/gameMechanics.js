@@ -16,7 +16,7 @@ const GameMechanics = (() => {
 
     if (gameTimeInSec <= 0) {
       scene.scene.start('GameOverScene');
-      scene.stop();
+      scene.scene.stop();
     }
 
     UI.displayTime(gameTimeInSec);

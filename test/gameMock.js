@@ -25,6 +25,8 @@ const GameMock = (() => {
       InstructionsScene,
     ],
   };
+  document.body.innerHTML = '';
+
   const game = new Phaser.Game(config);
   return { game };
 })();
