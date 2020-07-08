@@ -13,6 +13,10 @@ test('Expect hero to be of class object', () => {
   expect(typeof heroTest).toBe('object');
 });
 
+test('Expect hero not to be undefined after instantiation', () => {
+  expect(heroTest).not.toBe(undefined);
+});
+
 test('Expect constructor to be called when a new hero is created', () => {
   expect(Hero).toHaveBeenCalled();
 });
