@@ -12,11 +12,11 @@ This is an original shooter game built from scratch using Phaser 3 and vanilla J
 
 # The Game
 
-The Witcher is a slightly different shooter game in which enemies will spawn from the top and the right side of the game canvas. The main caracther 'Pipoya' fights in the 'Magic Cliff' to prevent monsters to enter her world. You control Pipoya's movement with the **arrow keys** while shooting arrows with **space** and **jumping with the up arrow key**. Defeat as many enemies as you can before you run out of health or time!
+The Witcher is a slightly different shooter game in which enemies will spawn from the top and the right side of the game canvas. The main character 'Pipoya' fights in the 'Magic Cliff' to prevent monsters to enter her world. You control Pipoya's movement with the **arrow keys** while shooting arrows with **space** and **jumping with the up arrow key**. Defeat as many enemies as you can before you run out of health or time!
 
-You get points after killing an enemy. Each enemy will give a different fixed number of points. You'll also recieve extra time after killing an enemy.
+You get points after killing an enemy. Each enemy will give a different fixed number of points. You'll also receive extra time after killing an enemy.
 
-At the end, you can enter your name in the leaderboard and check the highest scores.
+In the end, you can enter your name on the leaderboard and check the highest scores.
 
 # Live version
 [Play it online here](https://agile-mesa-29255.herokuapp.com/)
@@ -24,7 +24,7 @@ At the end, you can enter your name in the leaderboard and check the highest sco
 ## How to play
 
 - Use the **right and left arrow keys** to move Pipoya around the map.
-- Use the **up arrow key** to jump to evade enemi attacks.
+- Use the **up arrow key** to jump to evade enemy attacks.
 - Use the **space bar** to shoot Pipoya's arrows.
 
 You can play the game online clicking [here](https://agile-mesa-29255.herokuapp.com/) or locally following these steps:
@@ -39,7 +39,7 @@ You can play the game online clicking [here](https://agile-mesa-29255.herokuapp.
 
 ## Design
 
-The game uses high quality sprites to bring all scenes to life. You can expect well designed animations and map textures. I used [this](https://pipoya.itch.io/) sprite pack for animating hero and enemies Game Objects, and [this one](https://ansimuz.itch.io/magic-cliffs-environment) for rendering the map.
+The game uses high-quality sprites to bring all scenes to life. You can expect well-designed animations and map textures. I used [this](https://pipoya.itch.io/) sprite pack for animating heroes and enemies Game Objects and [this one](https://ansimuz.itch.io/magic-cliffs-environment) for rendering the map.
 
 ### Pipoya
 
