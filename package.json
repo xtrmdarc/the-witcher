@@ -11,7 +11,7 @@
     "eslint-plugin-import": "^2.20.2",
     "express": "^4.17.1",
     "phaser": "^3.23.0",
-    "stylelint": "^13.3.3",
+    "stylelint": "^15.10.1",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-scss": "^3.17.2"
   },
